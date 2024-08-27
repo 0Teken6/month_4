@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% if not posts %}
+
+    <h1>No posts</h1>
+
+{% else %}
+<div class="list-group">
+    {% for post in posts %}
+    <a href="/post/{{ post.pk }}/" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ post.title }}</h5>
+        <small>{{ post.updated_at }}</small>
+      </div>
+      <p class="mb-1">{{ post.content }}</p>
+      <small>{{ post.rate }}</small>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
