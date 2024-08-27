@@ -1,6 +1,8 @@
 {% extends "main.html" %}
 
+
 {% block content %}
+{% load static %}
 {% if not posts %}
 
     <h1>No posts</h1>
@@ -8,14 +10,18 @@
 {% else %}
 <div class="list-group">
     {% for post in posts %}
-    <a href="/post/{{ post.pk }}/" class="list-group-item list-group-item-action">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ post.title }}</h5>
-        <small>{{ post.updated_at }}</small>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        {% if post.image %}
+          <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+        {% else %}
+          <img src="{% static 'placeholder.png' %}" class="card-img-top" alt="...">
+        {% endif %}
+        <a href="/post/{{ post.id }}"><h5 class="card-title">{{ post.title }}</h5></a>
+        <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.updated_at }}</h6>
+        <p class="card-text">{{ post.content }}</p>
       </div>
-      <p class="mb-1">{{ post.content }}</p>
-      <small>{{ post.rate }}</small>
-    </a>
+    </div>
     {% endfor %}
 </div>
 {% endif %}

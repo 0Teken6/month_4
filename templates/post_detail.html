@@ -1,11 +1,22 @@
 {% extends "main.html" %}
 
 {% block content %}
+{% load static %}
 <div class="card" style="width: 18rem;">
     <div class="card-body">
+      {% if post.image %}
+        <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+      {% else %}
+        <img src="{% static 'placeholder.png' %}" class="card-img-top" alt="...">
+      {% endif %}
       <h5 class="card-title">{{ post.title }}</h5>
       <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.updated_at }}</h6>
       <p class="card-text">{{ post.content }}</p>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Category: {{ post.category }}</h6>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Tags:</h6>
+      {% for tag in tags %}
+        <h6 class="card-subtitle mb-1 text-body-secondary">{{ tag }}</h6>
+      {% endfor %}
       <a href="/posts/" class="card-link">Posts</a>
       <a href="/" class="card-link">Home</a>
     </div>
